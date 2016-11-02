@@ -43,6 +43,10 @@ public class Station implements Serializable {
 	@XmlTransient
 	private List<DeviceRecord> deviceRecords;
 
+	private double longitude;
+	
+	private double latitude;
+	
 	public Station() {
 	}
 
@@ -84,6 +88,22 @@ public class Station implements Serializable {
 
 	public void setChangeTime(Date changeTime) {
 		this.changeTime = changeTime;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 
 	public List<DeviceRecord> getDeviceRecords() {

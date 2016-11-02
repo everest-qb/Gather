@@ -9,4 +9,22 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <login-config>
+  	<auth-method>BASIC</auth-method>
+  	<realm-name>DC_REALM</realm-name></login-config>
+  <security-role>
+  	<role-name>DC_ROLE</role-name>
+  </security-role>
+  
+  <security-constraint>
+  	<web-resource-collection>
+  		<web-resource-name>DE_RESOURCE</web-resource-name>
+  		<url-pattern>/rest/station/*</url-pattern>
+  		<url-pattern>/rest/data/*</url-pattern>
+  	</web-resource-collection>
+  	<auth-constraint>
+  		<role-name>DC_ROLE</role-name>
+  	</auth-constraint>
+  </security-constraint>
+
 </web-app>

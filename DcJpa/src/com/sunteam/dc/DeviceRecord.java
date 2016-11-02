@@ -45,7 +45,8 @@ public class DeviceRecord implements Serializable {
 	@XmlTransient
 	private Station station;
 
-	@Transient
+	//@Transient
+	@Column(name="station_id", insertable = false, updatable = false)
 	private int stationId;
 	
 	public DeviceRecord() {
@@ -95,13 +96,12 @@ public class DeviceRecord implements Serializable {
 		return this.station;
 	}
 
-	public void setStation(Station station) {
-		this.station = station;
-		this.stationId=station.getId();
+	public void setStation(Station station) {		
+		this.station = station;		
 	}
 
 	public int getStationId() {
-		return stationId;
+		return this.stationId;
 	}
 
 	public void setStationId(int stationId) {
