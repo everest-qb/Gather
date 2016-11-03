@@ -6,6 +6,8 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -47,4 +49,22 @@ public class RecordService {
     		r.getStationId();
     	return returnValue;
     }
+    
+    @GET
+	@Path("top")
+	@Produces(MediaType.APPLICATION_JSON)
+    public List<Rank> findRank(@QueryParam("limit") @Max(30) int limit){
+    	
+    	return em.createNamedQuery("Rank.findAll", Rank.class).setMaxResults(limit).getResultList();    	
+    }
+    
+    @GET
+	@Path("one")
+	@Produces(MediaType.APPLICATION_JSON)
+    @NotNull
+    public DeviceRecord find(@QueryParam("id") int stationId){
+    	
+    	return em.find(DeviceRecord.class, stationId);    	
+    }
+    
 }

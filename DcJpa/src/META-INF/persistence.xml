@@ -5,6 +5,7 @@
 		<jta-data-source>DcDatasource</jta-data-source>
 		<class>com.sunteam.dc.DeviceRecord</class>
 		<class>com.sunteam.dc.Station</class>
+		<class>com.sunteam.dc.Rank</class>
 		<shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
 	</persistence-unit>
 </persistence>
