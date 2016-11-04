@@ -1,5 +1,6 @@
 import java.util.List;
 
+import javax.net.ssl.SSLContext;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -8,9 +9,8 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.SslConfigurator;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
-import org.glassfish.jersey.grizzly.connector.GrizzlyConnectorProvider;
 
 import com.sunteam.dc.DeviceRecord;
 import com.sunteam.dc.Station;
@@ -20,13 +20,22 @@ public class JaxRsRun {
 	public static void main(String[] args) {
 		
 		
-		ClientConfig clientConfig = new ClientConfig();
-		clientConfig.connectorProvider(new GrizzlyConnectorProvider());
-		Client client = ClientBuilder.newClient(clientConfig);
+		//ClientConfig clientConfig = new ClientConfig();
+		//clientConfig.connectorProvider(new GrizzlyConnectorProvider());
+		
+		SslConfigurator sslConfig = SslConfigurator.newInstance()
+		        .trustStoreFile("./cacerts.jks")
+		        .trustStorePassword("changeit")
+		        .keyStoreFile("./keystore.jks")
+		        .keyPassword("changeit");
+		 
+		SSLContext sslContext = sslConfig.createSSLContext();			
+		//Client client = ClientBuilder.newClient(clientConfig);
+		Client client = ClientBuilder.newBuilder().sslContext(sslContext).build();		
 		HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("USER01", "123456789");
 		client.register(feature);
 		
-		WebTarget webTarget = client.target("http://localhost:8080/DcWar/rest");
+		WebTarget webTarget = client.target("https://localhost:8181/DcWar/rest");
 		WebTarget stationAllWebTarget = webTarget.path("station").path("all");
 		WebTarget resordAllWebTarget = webTarget.path("data").path("sta").queryParam("id", 1);
 		
