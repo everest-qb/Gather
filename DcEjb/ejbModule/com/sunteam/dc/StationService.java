@@ -6,21 +6,17 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
 
 @Stateless
 @LocalBean
-@Path("station")
 public class StationService {
-
+	private Logger log = LoggerFactory.getLogger(StationService.class);
 	@PersistenceContext(unitName="DcJpa")
 	private EntityManager em;
     
@@ -28,19 +24,33 @@ public class StationService {
       
     }
     
-    @GET
-	@Path("all")
-	@Produces(MediaType.APPLICATION_JSON)
-    public List<Station> findAll(){    	
+    public List<Station> findAll(){ 
+    	log.trace("findAll");
     	return em.createNamedQuery("Station.findAll", Station.class).getResultList();
     }
    
-    @NotNull
-    @GET
-	@Path("one")
-	@Produces(MediaType.APPLICATION_JSON)
-    public Station find(@QueryParam("id") int stationId){    	
+    public Station find(int stationId){ 
+    	log.trace("find {}",stationId);
     	return em.find(Station.class, stationId);
+    }
+    
+    public void insert(Station s){
+    	em.persist(s);
+    }
+    
+    public void update(Station s){
+    	Station station=em.find(Station.class, s.getId());
+    	if(station!=null){
+    		station.setChangeTime(s.getChangeTime());
+    		station.setDescription(s.getDescription());
+    		station.setIp(s.getIp());
+    		station.setLatitude(s.getLatitude());
+    		station.setLongitude(s.getLongitude());
+    		station.setName(s.getName());
+    		em.merge(station);    		
+    	}else{
+    		log.warn("Modyfy Error!");
+    	}
     }
     
 }
