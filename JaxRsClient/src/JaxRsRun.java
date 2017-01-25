@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.SslConfigurator;
+import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 
 import com.sunteam.dc.DeviceRecord;
@@ -23,15 +24,15 @@ public class JaxRsRun {
 		//ClientConfig clientConfig = new ClientConfig();
 		//clientConfig.connectorProvider(new GrizzlyConnectorProvider());
 		
-		SslConfigurator sslConfig = SslConfigurator.newInstance()
+		/*SslConfigurator sslConfig = SslConfigurator.newInstance()
 		        .trustStoreFile("./cacerts.jks")
 		        .trustStorePassword("changeit")
 		        .keyStoreFile("./keystore.jks")
 		        .keyPassword("changeit");
 		 
-		SSLContext sslContext = sslConfig.createSSLContext();			
-		//Client client = ClientBuilder.newClient(clientConfig);
-		Client client = ClientBuilder.newBuilder().sslContext(sslContext).build();		
+		SSLContext sslContext = sslConfig.createSSLContext();*/					
+		//Client client = ClientBuilder.newBuilder().sslContext(sslContext).build();
+		Client client = ClientBuilder.newClient();
 		HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("USER01", "123456789");
 		client.register(feature);
 		
