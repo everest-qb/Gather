@@ -19,6 +19,7 @@ public class DeviceTest {
 		
 		assertEquals(d.genDeviceids().size(),d.getUsers());
 	}
+	
 	@Test
 	public void testGenCsv(){
 		for(Map<String,String> m:d.genExport()){

@@ -1,9 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>JaxRsClient</groupId>
+	<groupId>com.taichung.JaxRsClient</groupId>
 	<artifactId>JaxRsClient</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
+	<distributionManagement>
+		<repository>
+			<id>maven.localdomain</id>
+			<name>maven.localdomain-releases</name>
+			<url>http://192.168.7.12:8081/artifactory/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>maven.localdomain</id>
+			<name>maven.localdomain-snapshots</name>
+			<url>http://192.168.7.12:8081/artifactory/libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
